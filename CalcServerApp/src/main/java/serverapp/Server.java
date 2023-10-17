@@ -55,17 +55,14 @@ public class Server extends CalcServiceGrpc.CalcServiceImplBase {
     //case 2 request client, stream server
     public void generatePowers(NumberAndMaxExponent request, StreamObserver<Result> responseObserver) {
 
-        //generate the random max exponent
-        int rand = (int)Math.floor(Math.random()*(request.getMaxExponent() - 1 + 1) + 1);
-
         //debug
         System.out.println("\t--- Case 2 ---");
-        System.out.println("Received -> Base number: "+request.getBaseNumber()+" maxRandValue: "+request.getMaxExponent());
+        System.out.println("Received -> Base number: "+request.getBaseNumber()+" maxExponent: "+request.getMaxExponent());
 
         //calc all values from one to random max exponent
-        for(int i = 1; i <= rand; i++){
+        for(int i = 1; i <= request.getMaxExponent(); i++){
             //value calc with i
-            int numbResult = (int) Math.pow(request.getBaseNumber(), rand);
+            int numbResult = (int) Math.pow(request.getBaseNumber(), i);
 
             //debug
             System.out.println("Sending: "+ numbResult+" = "+request.getBaseNumber()+"^"+i);
